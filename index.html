@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir decimal a cualquier base</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="section">
+        <div id="app" class="container is-fluid">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="is-size-2">Conversión de decimal a cualquier base</h1>
+                    <div class="field">
+                        <label class="label">Selecciona la base:</label>
+                        <div class="control">
+                            <div class="select">
+                                <select @change="calcular" v-model="baseSeleccionada" class="select">
+                                    <option v-for="base in bases" :value="base" :key="base">{{base}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Escribe el número decimal:</label>
+                        <div class="control">
+                            <input ref="inputPrincipal" v-model="numeroDecimal" class="input" type="number"
+                                placeholder="123456789">
+                        </div>
+                    </div>
+                    <div class="notification is-success" v-show="resultado">
+                        <h3 class="is-size-3">
+
+                            {{numeroDecimal}}<sub class="is-size-5">10</sub> = {{resultado}}<sub
+                                class="is-size-5">{{baseSeleccionada}}</sub>
+                        </h3>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>División entre {{baseSeleccionada}}</th>
+                                    <th>Cociente</th>
+                                    <th>Residuo</th>
+                                    <th>Explicación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(operacion,indiceOperacion) in operaciones" :key="indiceOperacion">
+                                    <td> {{operacion.anteriorDecimal}} / {{baseSeleccionada}} </td>
+                                    <td> {{operacion.decimal}} </td>
+                                    <td> {{operacion.residuo}} </td>
+                                    <td>
+                                        Dividimos <strong>{{operacion.anteriorDecimal}} entre
+                                            {{baseSeleccionada}}</strong>.
+                                        El resultado es
+                                        {{operacion.decimal}} y sobra {{operacion.residuo}}.
+                                        <br>
+                                        El residuo
+                                        <code>{{operacion.residuo}}{{operacion.equivalencia ? ' ('+operacion.equivalencia+')': ''}}</code>
+                                        lo
+                                        agregamos
+                                        en la posición
+                                        <code> {{operaciones.length - indiceOperacion}}</code> de nuestro resultado.
+                                        <br>
+                                        Ahora nuestro decimal es
+                                        {{operacion.decimal}} y es el que vamos a dividir a continuación
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>Tip: si lees las filas de la columna "Residuo" de abajo hacia arriba obtendrás
+                                        el
+                                        resultado</td>
+                                    <td><strong>Resultado: </strong>{{resultado}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="content">
+                        <blockquote>
+                            Para convertir un número decimal a cualquier base, hay que dividir el decimal entre esa base
+                            y sacar el residuo junto con el cociente. En cada paso, el residuo es el dígito que
+                            compondrá al resultado, y el cociente es el nuevo número decimal que seguiremos dividiendo
+                            hasta que el mismo sea 0
+                        </blockquote>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-toasted"> </script>
+    <script src="script.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4859317680104877"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
