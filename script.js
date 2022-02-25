@@ -1,5 +1,5 @@
 /**
- * Explicar conversión de cualquier base a decimal usando JavaScript
+ * Calculadora decimal a cualquier base explicando los pasos para llegar al resultado
  * Hecho con Vue.JS 2 + Bulma CSS
  * @author parzibyte
  */
@@ -50,18 +50,7 @@ const app = new Vue({
         resetear() {
             this.operaciones = [];
         },
-        esNumeroValido(numero) {
-            if (this.baseSeleccionada === BINARIO) {
-                return numero.split("").every(digito => "01".includes(digito));
-            }
 
-            if (this.baseSeleccionada === OCTAL) {
-                return numero.split("").every(digito => "01234567".includes(digito));
-            }
-            if (this.baseSeleccionada === HEXADECIMAL) {
-                return numero.split("").every(digito => "0123456789ABCDEF".includes(digito));
-            }
-        },
         calcular() {
             this.resetear();
             if (!this.numeroDecimal) {
@@ -84,7 +73,6 @@ const app = new Vue({
                 resultado = equivalencia + resultado;
             }
             this.resultado = resultado;
-
         }
     },
     watch: {
